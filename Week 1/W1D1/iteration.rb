@@ -51,9 +51,10 @@ class Array
     sorted = false
     while sorted == false
       sorted = true
-      self.each_with_index do |n1,idx|
-        if prc.call(self[idx], self[idx+1]) == 1
-          self[idx+1],self[idx] = self[idx], self[idx+1]
+      self[0..-2].each_index do |i|
+        j = i + 1
+        if prc.call(self[i], self[j]) == 1
+          self[j],self[i] = self[i], self[j]
           sorted = false
         end
       end
@@ -62,7 +63,7 @@ class Array
   end
 
   def bubble_sort(&prc)
-    bubble_sort!(&prc).dup
+    self.dup.bubble_sort!(&prc)
   end
 end
 
@@ -80,15 +81,15 @@ end
 # words).
 
 def substrings(string)
-  i = 1
-  arr = []
-  while i <= string.length
-    arr << string.chars.each_cons(i).to_a.map(&:join)
-    i += 1
+  substrings = []
+  string.length each do |i|
+    string.chars.each_cons(i) do |sub|
+      substrings << sub
+    end
   end
-  arr.flatten.uniq
+  substrings
 end
 
 def subwords(word, dictionary = ["cat"])
-  substrings(word).select {|w| dictionary.include?(w)}
+  substrings(word).select { |word| dictionary.include?(word) }
 end

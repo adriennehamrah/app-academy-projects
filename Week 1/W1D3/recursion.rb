@@ -1,4 +1,4 @@
-class Array
+ class Array
   def merge_sort
     return self if length <= 1 #TODO self[0]
 

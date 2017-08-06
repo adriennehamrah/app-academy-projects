@@ -31,63 +31,68 @@ class Array
     false
   end
 
-  def my_flatten
-    arr = []
+  def my_all?(&prc)
     self.my_each do |el|
+      return false unless prc.call(el)
+    end
+    true
+  end
+
+  def my_flatten
+    flattened = []
+
+    self.each do |el|
       if el.is_a?(Array)
-        arr += el.my_flatten
+        flattened += el.my_flatten
       else
-        arr << el
+        flattened << el
       end
     end
-    arr
+
+    flattened
   end
 
   def my_zip(*args)
-    res = Array.new(self.length) { Array.new }
+    arr = []
 
-    self.each_with_index do |el, i|
-      res[i] << el
-      args.each { |arr| res[i] << arr[i] }
+    self.each_index do |i|
+      arr << [self[i]]
+      arr[i].concat(arrs.map { |arr| arr[i] })
     end
-    res
+
+    arr
   end
 
   def my_rotate(offset = 1)
-    newarr = self
-    if offset > 0
-      offset.times do
-        to_back = newarr.shift
-        newarr.push(to_back)
-      end
-    else
-      offset.abs.times do
-        to_front = newarr.pop
-        newarr.unshift(to_front)
-      end
+    new_offset = offset % self.size
+
+    new_offset.times do
+      self << self.shift
     end
-    newarr
+    self
   end
 
   def my_join(sep = '')
-    str = ''
-    self.my_each do |el|
-      str << el + sep
+    joined = ''
+    size.times do |i|
+      joined << self[el]
+      joined << sep unless i == self.size - 1
     end
-    if sep == ''
-      str
-    else
-      str[0..-2]
-    end
+
+    str
   end
 
   def my_reverse
-    i = self.length - 1
-    arr = []
-    while i >= 0
-     arr << self[i]
-      i -= 1
-    end
-    arr
+    #  # iterative
+    #   reversed = []
+    #   self.length.times do
+    #     reversed << self.pop
+    #   end
+    #   reversed
+
+    # recursive
+    return self if size < 2
+    first = self.pop
+    [first] + self.my_reverse
   end
 end
