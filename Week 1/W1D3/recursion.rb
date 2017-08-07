@@ -1,38 +1,33 @@
- class Array
-  def merge_sort
-    return self if length <= 1 #TODO self[0]
+class Array
+  def merge_sort(&prc)
+    prc ||= Proc.new { |x, y| x <=> y }
 
-    mid = self.mid_idx
+    return self if length <= 1
 
-    left_sorted = self[0...mid].merge_sort
-    right_sorted = self[mid..-1].merge_sort
+    mid = length/2
+    left_sorted = self.take(mid).merge_sort(&prc)
+    right_sorted = self.drop(mid).merge_sort(&prc)
 
-    merge(left_sorted, right_sorted)
+    merge(left_sorted, right_sorted, &prc)
   end
 
-  def merge(left_sorted, right_sorted)
+  def merge(left_sorted, right_sorted, &prc)
     sorted = []
 
     until left_sorted.empty? || right_sorted.empty?
-      if left_sorted[0] >= right_sorted[0]
-        sorted << right_sorted.shift
-      else
+      case prc.call(left_sorted[0], right_sorted[0])
+      when -1
         sorted << left_sorted.shift
+      when 0
+        sorted << left_sorted.shift
+      when 1
+        sorted << right_sorted.shift
       end
     end
 
     sorted + left_sorted + right_sorted
   end
-
-  def mid_idx
-    length/2
-  end
 end
-
-
-
-
-
 
 def range(lo, hi)
   return [] if lo >= hi
@@ -72,12 +67,10 @@ class Array
 end
 
 def fib(n)
-   if n <= 2
-     [0, 1].take(n)
-   else
-     prev_fib = fib(n - 1)
-     prev_fib << prev_fib[-2] + prev_fib[-1]
-   end
+  return [0,1].take(n) if n < 2
+
+  prev_fib = fib(n-1)
+  prev_fib << prev_fib[-2] + prev_fib[-1]
 end
 
 class Array
@@ -88,17 +81,13 @@ class Array
     small_subs = small_sub.subsets
 
     small_subs + small_subs.map {|sub| sub + [last]}
-
-    # small_subs.each do |sub|
-    #   big_subs << sub + [self.last]
-    # end
-    # small_subs + big_subs
   end
 end
 
 def my_perm(arr)
+  return [[]] if empty?
+
   res = []
-  return [arr] if arr.length <= 1
 
   length.times do
     first = arr[0]
@@ -108,49 +97,17 @@ def my_perm(arr)
   res
 end
 
-
-NON_MATCH = nil
 def bsearch(arr, val)
-  if self.count(NON_MATCH) == self.length - 1
-    idx = first_valid_index(val.class)
-    return match?(idx, val) ? val : nil
-  end
+  return nil if arr.empty?
 
-  arr = self.dup
-  mid = arr.valid_midpoint(val.class)
-  return mid if arr.match?(mid, val)
+  mid_idx = arr.size/2
 
-  if val < arr[mid]
-    lo_nil, hi_nil = [mid, arr.length - 1]
+  if val < arr[mid_idx]
+    bsearch(arr[0...mid_idx], val)
+  elsif val == arr[mid_idx]
+    mid_idx
   else
-    lo_nil, hi_nil = [0, mid]
+    sub_ans = bsearch(arr[mid_idx+1..-1], val)
+    (sub_ans.nil?) ? nil : (mid_idx + sub_ans + 1)
   end
-
-  arr.nil_out_range(lo_nil, hi_nil)
-  arr.bsearch(val)
-end
-
-def nil_out_range(lo, hi)
-  lo.upto(hi) { |idx| self[idx] = nil }
-end
-
-def match?(idx, val)
-  self[idx] == val
-end
-
-def valid_midpoint(valid_class)
-  indices = valid_range(valid_class)
-  (indices[0] + indices[1]) / 2
-end
-
-def valid_range(valid_class)
-  [first_valid_index(valid_class), last_valid_index(valid_class)]
-end
-
-def first_valid_index(valid_class)
-  index { |el| el.is_a?(valid_class) }
-end
-
-def last_valid_index(valid_class)
-  rindex { |el| el.is_a?(valid_class) }
 end
