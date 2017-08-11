@@ -79,16 +79,16 @@ class StackQueue
   end
 end
 
-class MinMaxStack
+class MaxMinStack
   def initialize
-    @store = Mystack.new
+    @store = MyStack.new
   end
 
   def push(el)
     @store.push(
-      max: new_max(val),
-      min: new_min(val),
-      value: val
+      max: new_max(el),
+      min: new_min(el),
+      value: el
     )
   end
 
@@ -130,8 +130,8 @@ end
 
 class MaxMinStackQueue
   def initialize
-    @in_stack = MinMaxStack.new
-    @out_stack = MinMaxStack.new
+    @in_stack = MaxMinStack.new
+    @out_stack = MaxMinStack.new
   end
 
   def enqueue(el)
