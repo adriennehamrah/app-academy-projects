@@ -44,7 +44,7 @@ class MyStack
   end
 
   def size
-    @store.length
+    @store.size
   end
 
   def empty?
@@ -110,7 +110,7 @@ class MaxMinStack
   end
 
   def size
-    @store.length
+    @store.size
   end
 
   def empty?
@@ -161,7 +161,7 @@ class MaxMinStackQueue
   end
 
   def size
-    @in_stack.length + @out_stack.length
+    @in_stack.size + @out_stack.size
   end
 
   def empty?
