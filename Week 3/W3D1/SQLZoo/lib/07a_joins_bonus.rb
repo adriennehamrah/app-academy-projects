@@ -62,7 +62,7 @@ def heart_tracks
     FROM albums
     JOIN tracks on albums.asin = tracks.album
     WHERE tracks.song LIKE '%Heart%'
-    GROUP BY albums.title
+    GROUP BY albums.asin
     ORDER BY COUNT(tracks.*) DESC, albums.title
   SQL
 end
@@ -105,8 +105,12 @@ def best_value
   # pence. Find the good value albums - show the title, the price and the number
   # of tracks.
   execute(<<-SQL)
-    
-  SQL
+      SELECT albums.title, albums.price, COUNT(tracks.song)
+      FROM albums
+      JOIN tracks ON albums.asin = tracks.album
+      GROUP BY albums.asin
+      HAVING (albums.price/COUNT(tracks.song)) < .5
+    SQL
 end
 
 def top_track_counts
@@ -114,6 +118,12 @@ def top_track_counts
   # tracks. List the top 10 albums. Select both the album title and the track
   # count, and order by both track count and title (descending).
   execute(<<-SQL)
+    SELECT albums.title, COUNT(tracks.*)
+    FROM albums
+    JOIN tracks ON albums.asin = tracks.album
+    GROUP BY albums.asin
+    ORDER BY COUNT(tracks.*) DESC, albums.title DESC
+    LIMIT 10
   SQL
 end
 
@@ -121,6 +131,13 @@ def rock_superstars
   # Select the artist who has recorded the most rock albums, as well as the
   # number of albums. HINT: use LIKE '%Rock%' in your query.
   execute(<<-SQL)
+    SELECT albums.artist, COUNT(DISTINCT albums.*)
+    FROM albums
+    JOIN styles ON albums.asin = styles.album
+    WHERE styles.style LIKE '%Rock%'
+    GROUP BY albums.artist
+    ORDER BY COUNT(DISTINCT albums.*) DESC
+    LIMIT 1
   SQL
 end
 
@@ -133,5 +150,17 @@ def expensive_tastes
   # subquery. Next, JOIN the styles table to this result and use aggregates to
   # determine the average price per track.
   execute(<<-SQL)
+    SELECT styles.style, SUM(tracks_per_albums.price/tracks_per_albums.count)
+    FROM styles
+    JOIN (
+      SELECT albums.asin, COUNT(tracks_per_albums.*) AS count
+      FROM albums
+      JOIN tracks ON albums.asin = tracks.album
+      GROUP BY albums.asin
+    ) AS tracks_per_albums
+    ON styles.album = tracks_per_albums.asin
+    GROUP BY styles.style
+    ORDER BY COUNT(DISTINCT tracks.*)
+    LIMIT 5
   SQL
 end

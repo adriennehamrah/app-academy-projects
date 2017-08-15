@@ -100,9 +100,9 @@ def cl_to_lr
       a.stop_id,
       b.stop_id
     FROM
-      routes a
+      routes AS a
     JOIN
-      routes b ON (a.company = b.company AND a.num = b.num)
+      routes AS b ON (a.company = b.company AND a.num = b.num)
     WHERE
       a.stop_id = 53 and b.stop_id = 149
   SQL
@@ -138,13 +138,13 @@ def cl_to_lr_by_name
       stopa.name,
       stopb.name
     FROM
-      routes a
+      routes AS a
     JOIN
-      routes b ON (a.company = b.company AND a.num = b.num)
+      routes AS b ON (a.company = b.company AND a.num = b.num)
     JOIN
-      stops stopa ON (a.stop_id = stopa.id)
+      stops AS stopa ON (a.stop_id = stopa.id)
     JOIN
-      stops stopb ON (b.stop_id = stopb.id)
+      stops AS stopb ON (b.stop_id = stopb.id)
     WHERE
       stopa.name = 'Craiglockhart' AND stopb.name = 'London Road'
   SQL
@@ -155,10 +155,10 @@ def haymarket_and_leith
   # 115 and 137 ('Haymarket' and 'Leith')
   execute(<<-SQL)
     SELECT DISTINCT a.company, a.num
-    FROM routes a
-    JOIN routes b on (a.company = b.company AND a.num = b.num)
-    JOIN stops stop_a ON (a.stop_id = stop_a.id)
-    JOIN stops stop_b ON (b.stop_id = stop_b.id)
+    FROM routes AS a
+    JOIN routes AS b on (a.company = b.company AND a.num = b.num)
+    JOIN stops AS stop_a ON (a.stop_id = stop_a.id)
+    JOIN stops AS stop_b ON (b.stop_id = stop_b.id)
     WHERE stop_a.name = 'Haymarket' AND stop_b.name = 'Leith'
   SQL
 end
@@ -168,10 +168,10 @@ def craiglockhart_and_tollcross
   # 'Craiglockhart' and 'Tollcross'
   execute(<<-SQL)
     SELECT DISTINCT a.company, a.num
-    FROM routes a
-    JOIN routes b on (a.company = b.company AND a.num = b.num)
-    JOIN stops stop_a ON (a.stop_id = stop_a.id)
-    JOIN stops stop_b ON (b.stop_id = stop_b.id)
+    FROM routes AS a
+    JOIN routes AS b on (a.company = b.company AND a.num = b.num)
+    JOIN stops AS stop_a ON (a.stop_id = stop_a.id)
+    JOIN stops AS stop_b ON (b.stop_id = stop_b.id)
     WHERE stop_a.name = 'Craiglockhart' AND stop_b.name = 'Tollcross'
   SQL
 end
@@ -182,10 +182,10 @@ def start_at_craiglockhart
   # as well as the company and bus no. of the relevant service.
   execute(<<-SQL)
     SELECT DISTINCT stop_b.name, b.company, b.num
-    FROM routes a
-    JOIN routes b on (a.company = b.company AND a.num = b.num)
-    JOIN stops stop_a ON (a.stop_id = stop_a.id)
-    JOIN stops stop_b ON (b.stop_id = stop_b.id)
+    FROM routes AS a
+    JOIN routes AS b on (a.company = b.company AND a.num = b.num)
+    JOIN stops AS stop_a ON (a.stop_id = stop_a.id)
+    JOIN stops AS stop_b ON (b.stop_id = stop_b.id)
     WHERE stop_a.name = 'Craiglockhart'
   SQL
 end
@@ -196,13 +196,13 @@ def craiglockhart_to_sighthill
   # stop for the transfer, and the bus no. and company for the second bus.
   execute(<<-SQL)
     SELECT DISTINCT a.num, a.company, stop_b.name, d.num, d.company
-    FROM routes a
-    JOIN routes b ON (a.company = b.company AND a.num = b.num)
-    JOIN routes c ON (b.stop_id = c.stop_id)
-    JOIN routes d ON (c.company = d.company AND c.num = d.num)
-    JOIN stops stop_a ON (a.stop_id = stop_a.id)
-    JOIN stops stop_b ON (b.stop_id = stop_b.id)
-    JOIN stops stop_c ON (d.stop_id = stop_c.id)
+    FROM routes AS a
+    JOIN routes AS b ON (a.company = b.company AND a.num = b.num)
+    JOIN routes AS c ON (b.stop_id = c.stop_id)
+    JOIN routes AS d ON (c.company = d.company AND c.num = d.num)
+    JOIN stops AS stop_a ON (a.stop_id = stop_a.id)
+    JOIN stops AS stop_b ON (b.stop_id = stop_b.id)
+    JOIN stops AS stop_c ON (d.stop_id = stop_c.id)
     WHERE stop_a.name = 'Craiglockhart' AND stop_c.name = 'Sighthill'
   SQL
 end
