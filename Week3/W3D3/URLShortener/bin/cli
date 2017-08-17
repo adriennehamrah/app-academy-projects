@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+
+class CLI
+  def find_user
+    puts 'What is your email?'
+    email = gets.chomp
+
+    @current_user = User.find_by(email: email)
+
+    raise 'No user found' unless @current_user
+  end
+
+  def run
+    find_user
+
+    puts 'What do you want to do?'
+    puts '1: Create shortened URL.'
+    puts '2: Visit shortened URL.'
+
+    choice = gets.chomp
+
+    case choice.to_i
+    when 1
+      create_short_url
+    when 2
+      visit_url
+    end
+  end
+
+  def create_short_url
+    puts 'What is the long URL?'
+    long = gets.chomp
+    shortened_url = ShortenedUrl.create_with_user_long_url!(@current_user, long)
+
+    puts "The short URL is #{shortened_url.short_url}"
+  end
+
+  def visit_url
+    puts 'What is the short URL?'
+    short = gets.chomp
+
+    shortened_url = ShortenedUrl.find_by(short_url: short)
+
+    raise 'No short url found' unless shortened_url
+
+    Visit.record_visit!(@current_user, shortened_url)
+    Launchy.open(shortened_url.long_url)
+  end
+end
+
+CLI.new.run
