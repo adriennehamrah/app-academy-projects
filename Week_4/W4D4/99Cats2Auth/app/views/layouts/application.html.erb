@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <header>
+      <% if current_user %>
+      Hello <%= current_user.user_name %>!
+      <%= button_to "Log Out", :sessions, method: :delete %>
+      <% else %>
+      <%= link_to "Log In", :new_sessions %>
+      <% end %>
+      <br>
+      <%= link_to "Sign Up", :new_user %>
+      <h1>
+    </header>
+    <title>NinetyNineCats</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
