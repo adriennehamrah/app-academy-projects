@@ -1,0 +1,9 @@
+<h1>Bands</h1>
+<br>
+<% @bands.each do |band| %>
+<p><%= link_to "#{band.name.capitalize}",
+        band_url(band), class: "band_name_index" %></p>
+<br>
+<% end %>
+<br>
+<%= link_to "Add new band", new_band_url%>

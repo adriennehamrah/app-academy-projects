@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MusicAppAuth</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+    <header>
+      <h1 class='music_app_header group'> Welcome to the music app!</h1>
+      <br>
+      <% if current_user %>
+      Hello <%= current_user.email %>!
+      <nav class 'right-nav group'>
+        <%= button_to 'Log Out', session_url, method: :delete %>
+        <% else %>
+        <%= link_to 'Log In', new_session_url %>
+        <%= link_to 'Sign Up', new_user_url %>
+        <% end %>
+      </nav>
+    </header>
+    <%= yield %>
+  </body>
+</html>

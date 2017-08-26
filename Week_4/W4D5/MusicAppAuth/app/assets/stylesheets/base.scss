@@ -1,0 +1,78 @@
+h1, h2, h3, p, a, label, input {
+  font-family: "Trebuchet MS", Helvetica, sans-serif
+}
+
+h1 {
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: purple;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: bolder;
+  margin-bottom: 20px;
+  color: orange;
+}
+
+header {
+  display:flex;
+  align-items: center;
+}
+
+.music_app_header {
+  font-size: 30px;
+  color: purple;
+}
+
+.right_nav {
+ display: flex;
+ align-items: flex-end;
+ margin: 10px 0;
+}
+
+a {
+  padding: 5px;
+  border-radius: 3px;
+  border: none;
+  background-color: pink;
+  margin: 10px 0 ;
+}
+
+.band_name_index {
+  background-color: white;
+  color: blue;
+  text-decoration: underline;
+}
+
+input[type="submit"] {
+  padding: 5px;
+  border-radius: 3px;
+  border: none;
+  background-color: pink;
+  margin: 10px 0 ;
+  color: blue;
+  font-size: 16px;
+}
+input[type="submit"]:hover {
+  cursor: pointer;
+}
+
+.return_link {
+  background-color: white;
+  text-decoration: underline;
+}
+
+group:after {
+  content: "";
+  display: block;
+  clear: both;
+}

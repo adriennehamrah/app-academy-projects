@@ -1,0 +1,18 @@
+<h1>Band Profile</h1>
+<h2><%= @band.name %></h2>
+
+<h3> ALBUMS </h3>
+  <p>
+  <% @band.albums.each do |album| %>
+  <%= link_to "#{album.title.capitalize}",
+          album_url(album), class: "band_name_index" %>
+  <% end %>
+  </p>
+
+<h3> LINKS </h3>
+
+<p> <%= link_to "Add Album", new_album_url(band_id: @band.id) %>
+<p>  <%= button_to "Delete Band", band_url(@band),
+  method: :delete%> </p>
+
+<p> <%= link_to "Return to homepage", bands_url, class: "return_link" %></p>

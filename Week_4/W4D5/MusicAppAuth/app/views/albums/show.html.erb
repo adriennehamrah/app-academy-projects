@@ -1,0 +1,10 @@
+<h1>Album Profile</h1>
+<h2><%= @album.name %></h2>
+
+<h3> LINKS </h3>
+
+<p> <%= link_to "Edit Album", edit_album_url(@album) %>
+<p>  <%= button_to "Delete Album", album_url(@band),
+  method: :delete%> </p>
+
+<p> <%= link_to "Return to homepage", bands_url, class: "return_link" %></p>
