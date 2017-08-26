@@ -48,7 +48,6 @@ private
 
 def ensure_sesson_token
   self.session_token ||= User.generate_session_token
-  p "#{self.session_token}" + 'Test'
 end
 
 end
