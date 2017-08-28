@@ -27,10 +27,19 @@ feature 'marking goal completed' do
     expect(page).to have_content "Complete Goal"
   end
 
-  scenario 'clicking complete goal marks goal as complete in user profile' do
+  scenario 'clicking complete goal marks goal as complete on goal page' do
     sign_up
     add_goal
     click_button 'Complete Goal'
+
+    expect(page).to have_content 'completed'
+  end
+
+  scenario 'clicking complete goal marks goal as complete on user page' do
+    sign_up
+    add_goal
+    click_button 'Complete Goal'
+    click_on 'User Profile'
 
     expect(page).to have_content 'completed'
   end
