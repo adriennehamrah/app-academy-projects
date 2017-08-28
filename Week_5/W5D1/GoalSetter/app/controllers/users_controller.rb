@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  def index
+    render :index
+  end
+
   def new
     render :new
   end
@@ -11,7 +15,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      @user.reset_token!
+      login(@user)
       redirect_to user_url(@user)
     else
       flash[:errors] = @user.errors.full_messages
