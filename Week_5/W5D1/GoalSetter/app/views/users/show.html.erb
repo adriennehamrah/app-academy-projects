@@ -1,4 +1,7 @@
-<!-- Welcome
-<% if logged_in? %>
-  <%= current_user.username %>
-<% end %> -->
+<ul><% @user.goals.each do |goal| %>
+  <li><%= link_to "#{goal.title}", goal_url(goal) %>
+    <%= button_to 'Delete Goal', goal_url(goal), method: :delete %>
+<% end %>
+</ul>
+
+<%= link_to "Add Goal", new_goal_url %>

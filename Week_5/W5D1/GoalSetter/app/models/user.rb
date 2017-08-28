@@ -16,6 +16,8 @@ class User < ApplicationRecord
   attr_reader :password
   after_initialize :ensure_session_token
 
+  has_many :goals
+
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)
