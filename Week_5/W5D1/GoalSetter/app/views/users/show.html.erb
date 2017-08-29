@@ -1,6 +1,20 @@
-<h3><%=@user.username%>'s Goals</h3>
+<h2><%=@user.username%>'s Profile</h2>
 
-<h4>Add Comment</h4>
+<h3>Comments</h3>
+<% @user.usercomments.each do |comment| %>
+  <li><%= comment.body %><br>
+<% end %>
+
+<h4>New Comment</h4>
+<form class="" action=" <%= user_usercomments_url(@user) %> " method="post">
+  <input type="hidden" name="authenticity_token"
+    value="<%= form_authenticity_token %>">
+  <label>Comment
+    <textarea name="usercomment[body]" rows="3" cols="30"></textarea>
+  </label>
+  <input type="submit" name="" value="Save Comment">
+
+</form>
 
 <ul><% @user.goals.each do |goal| %>
   <li><%= link_to "#{goal.title}", goal_url(goal) %>
