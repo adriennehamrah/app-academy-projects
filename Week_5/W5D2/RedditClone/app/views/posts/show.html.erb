@@ -1,0 +1,24 @@
+<div class="border">
+  <h2><%= @post.title %></h2>
+  <b>Url</b><br>
+  <%= @post.url %><br>
+  <br>
+
+  <b>Content</b><br>
+  <%= @post.content %><br>
+
+  <h3>Subs</h3>
+  <% @post.subs.each do |sub| %>
+    <%= link_to sub.title, sub_url(sub) %><br>
+  <% end %>
+
+  <h3>Post Comments</h3>
+  <% parent_comments = @post.comments.where(parent_comment_id: nil) %>
+  <% parent_comments.each do |comment| %>
+    <li><%= link_to comment.content, comment_url(comment) %></li>
+  <% end %>
+
+  <br>
+  <%= link_to "Comment on this post", new_post_comment_url(@post.id) %>
+
+</div>

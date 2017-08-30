@@ -1,0 +1,18 @@
+<div class="border">
+  <h2><%= @sub.title %></h2>
+  <b>Description</b><br>
+  <br>
+  <%= @sub.description %>
+  <br>
+  <br>
+  <%= link_to "Make New Post", new_post_url %>
+  <br>
+  <% @sub.posts.each do |post| %>
+    <li><%= link_to post.title, post_url(post) %></li>
+  <% end %>
+  <br>
+  <% if logged_in? %>
+    <%= link_to "Edit Sub", edit_sub_url(@sub) %>
+  <% end %>
+
+</div>

@@ -1,0 +1,8 @@
+<div class="border">
+  <h2>All Subs</h2>
+
+  <% Sub.all.each do |sub| %>
+    <%= link_to sub.title, sub_url(sub) %>
+    <br>
+  <% end %>
+</div>

@@ -1,14 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Redditclone</title>
+    <title>RedditClone</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
+  <header>
+    <h1>Reddit On Rails</h1>
+
+    <% if logged_in? %>
+      Welcome <%= current_user.username %>!
+      <br>
+      <%= link_to "All Subs", subs_url %>
+      <br>
+      <%= link_to "Create a Sub", new_sub_url %>
+      <%= button_to "Sign Out", session_url, method: :delete  %>
+    <% else %>
+      <%= link_to "Sign In", new_session_url %>
+      <%= link_to "Sign Up", new_user_url %>
+    <% end %>
+
+
+  </header>
 
   <body>
+    <%= flash[:errors].join('<br>').html_safe if flash[:errors] %>
+
     <%= yield %>
   </body>
 </html>
