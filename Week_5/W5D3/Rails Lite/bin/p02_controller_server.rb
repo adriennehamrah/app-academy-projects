@@ -12,6 +12,7 @@ class MyController < ControllerBase
 end
 app = Proc.new do |env|
   req = Rack::Request.new(env)
+  env
   res = Rack::Response.new
   MyController.new(req, res).go
   res.finish
@@ -21,4 +22,3 @@ Rack::Server.start(
   app: app,
   Port: 3000
 )
-
