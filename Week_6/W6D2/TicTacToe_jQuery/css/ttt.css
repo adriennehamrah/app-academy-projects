@@ -1,0 +1,66 @@
+html, body, ul, li, h1, figure, figcaption {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  color: inherit;
+  background: transparent;
+}
+
+body {
+  text-align: center;
+  font-family: sans-serif;
+}
+
+h1{
+  font-size: 40px;
+  font-weight: bold;
+  color: royalblue;
+}
+
+figcaption{
+  font-size: 50px;
+  color: orange;
+}
+
+ul {
+  list-style: none;
+  width: 300px;
+  border: 5px solid black;
+  margin: 20px auto;
+}
+
+li {
+  float: left;
+  width: 98px;
+  height: 98px;
+  border: 1px solid black;
+  background: grey;
+}
+
+li:hover {
+  background: yellow;
+  cursor: pointer;
+}
+
+.clearfix:after{
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.x, .o{
+  background: white
+}
+
+.x:after {
+  content: 'x';
+  font-size: 70px;
+}
+
+.o:after {
+  content: 'o';
+  font-size: 70px;
+}
