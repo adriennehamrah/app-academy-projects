@@ -1,0 +1,76 @@
+html, body, ul, li, h1, figure, figcaption {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  color: inherit;
+  background: transparent;
+}
+
+.hanoi {
+  margin: 30px auto;
+  width: 700px ;
+}
+
+body {
+  text-align: center;
+  font-family: sans-serif;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: bold;
+  color: mediumpurple;
+  margin: 10px auto;
+}
+
+.clearfix:after{
+  content: "";
+  clear: both;
+  display: block;
+}
+
+ul {
+  list-style: none;
+  float: left;
+  width: 170px;
+  border-bottom: 7px solid lightseagreen;
+  cursor: pointer;
+  padding: 0 10px 10px 10px;
+  margin: auto 10px;
+}
+
+ul:hover {
+  border-bottom: 7px solid lightgreen;
+}
+
+ul.selected {
+  border-bottom: 7px solid lightgreen;
+}
+
+li {
+  width: 0px;
+  margin: 10px auto;
+  height: 50px;
+  background: skyblue;
+  border-radius: 25px;
+}
+
+li.disc1 {
+  width: 55px
+}
+
+li.disc2 {
+  width: 110px
+}
+
+li.disc3 {
+  width: 150px
+}
+
+figcaption {
+  font-size: 30px;
+  color: hotpink;
+}
