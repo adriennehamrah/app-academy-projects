@@ -60,7 +60,7 @@ function curriedSum(numArgs) {
       return total;
     } else {
 
-        return _curriedSum;
+    return _curriedSum;
     }
   };
 }
