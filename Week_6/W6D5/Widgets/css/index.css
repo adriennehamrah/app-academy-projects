@@ -1,0 +1,25 @@
+.clock {
+  font-family: 'Lato', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  font-size: 100px;
+  color: red;
+  height: 260px;
+  background-image: url("../assets/shao_long_bao.png");
+  background-color: blue;
+}
+
+.date{
+  background-image: url("../assets/coco_lava.jpg");
+  background-size: 350px 250px;
+  font-family: 'Lato', sans-serif;
+  color: blue;
+  font-size: 100px;
+  height: 260px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.weather{
+  border: solid 4px black;
+}
