@@ -8,7 +8,7 @@ def it_was_ok
   # Find the id, title, and score of all movies with scores between 2 and 3
   Movie
   .select(:id, :title, :score)
-  .where(score: (2..3))
+  .where(score: 2..3)
 end
 
 def harrison_ford
@@ -25,8 +25,8 @@ def harrison_ford
   Movie
     .select(:id, :title).distinct
     .joins(:actors)
-    .where(actors: {name: 'Harrison Ford'} )
-    .where.not(castings: {ord:1} )
+    .where(actors: { name: 'Harrison Ford' })
+    .where.not(castings: { ord: 1 })
 end
 
 def biggest_cast
@@ -63,10 +63,10 @@ def directed_by_one_of(them)
   # Movie.where(yr: years)
   #
   # Find the id and title of all the movies directed by one of 'them'.
-  Actor
-    .select('movies.id, movies.title')
-    .joins(:directed_movies)
-    .where(name: them)
+  Movie
+    .select(:id, :title)
+    .joins(:director)
+    .where(actors: { name: them })
 end
 
 def movie_names_before_1940
